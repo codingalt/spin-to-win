@@ -1,0 +1,15 @@
+@import "../../../styles/constants.scss";
+
+.inputError {
+  color: #e8521e !important;
+  font-size: 0.75rem !important;
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  padding: 1.4rem 1.4rem;
+  @include flexCenter;
+  flex-direction: column;
+  justify-content: flex-start;
+}
