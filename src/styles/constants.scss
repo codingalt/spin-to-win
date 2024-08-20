@@ -30,6 +30,10 @@ $text-success: #28a745;
     font-family: 'Lato', sans-serif;
 }
 
+@mixin cormorant{
+     font-family: "Cormorant", serif;
+}
+
 @mixin shadowSm{
     box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }

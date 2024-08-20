@@ -12,6 +12,9 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      cormorant: ["Cormorant", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",

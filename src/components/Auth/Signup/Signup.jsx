@@ -5,18 +5,16 @@ import css from "../Login/Login.module.scss";
 import { Formik, Form, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Image, Input } from "@nextui-org/react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { useContinueWithGoogleMutation, useRegisterUserMutation } from "@/services/api/authApi";
+import {
+  useContinueWithGoogleMutation,
+  useRegisterUserMutation,
+} from "@/services/api/authApi";
 import { signupSchema } from "@/utils/validation/AuthValidation";
 import { useApiErrorHandling } from "@/hooks/useApiErrors";
 import { useGoogleLogin } from "@react-oauth/google";
-import logo from "@/assets/logo.png"
+import logo from "@/assets/logoDark.svg";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
@@ -86,26 +84,28 @@ const Signup = () => {
 
   return (
     <>
-      <div className="w-screen h-screen overflow-x-hidden bg-white md:bg-primary flex gap-6">
+      <div className="w-screen h-screen scrollbar-hide overflow-x-hidden bg-white md:bg-primary flex gap-6">
         {/* Left Side  */}
         <div className="py-8 px-7 w-[30%] hidden md:block">
-          <div className="w-24">
+          <div className="w-24 min-h-24">
             <img src={logo} className="w-full" alt="Logo" />
           </div>
 
-          <p className="text-white font-medium max-w-xs capitalize mt-8">
+          <p className="text-primary-foreground font-cormorant text-xl uppercase font-semibold max-w-xs mt-8">
             Get access to our premium hosting & blockchain plans
           </p>
         </div>
 
         {/* Right Side  */}
-        <div className="bg-white rounded-l-[40px] px-2 md:px-0 w-full md:w-[70%] h-full flex flex-col md:flex-row items-center justify-center">
-          {/* <div className="w-24 md:hidden">
-          <Image src={logo} className="w-full" />
-        </div> */}
+        <div className="bg-white rounded-l-[50px] px-2 md:px-0 w-full md:w-[70%] md:py-8 my-9 md:my-0 h-full flex flex-col md:flex-row md:items-center md:justify-center">
+          <div className="w-[70px] md:hidden ml-3">
+            <Image src={logo} className="w-full" />
+          </div>
           <Card className="w-full mx-auto max-w-md pb-6 shadow-none border-none">
             <CardHeader>
-              <CardTitle className="text-2xl mb-5">Create Account</CardTitle>
+              <CardTitle className="text-3xl md:text-4xl text-primary-foreground mb-4 font-cormorant font-bold">
+                Create Account
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <Formik
@@ -195,7 +195,7 @@ const Signup = () => {
                       <Button
                         isLoading={isLoading}
                         type="submit"
-                        className="w-full mt-4 font-semibold text-medium"
+                        className="w-full font-cormorant text-xl mt-4 font-semibold text-medium"
                         color="primary"
                         radius="sm"
                       >
@@ -212,7 +212,7 @@ const Signup = () => {
                       </p>
 
                       {/* Divider  */}
-                      <div className="text-medium text-center text-default-500 font-medium my-4">
+                      <div className="text-medium text-center text-default-500 font-medium mt-4 md:mb-2 mb-0">
                         -OR-
                       </div>
 

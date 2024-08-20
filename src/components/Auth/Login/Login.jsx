@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react'
-import logo from "@/assets/logo.png"
+import React, { useEffect } from "react";
+import logo from "@/assets/logoDark.svg";
 import css from "./Login.module.scss";
-import { Button, Image, Input } from '@nextui-org/react'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Button, Image, Input } from "@nextui-org/react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useContinueWithGoogleMutation, useLoginUserMutation } from '@/services/api/authApi';
-import { toastError } from '@/components/Toast/Toast';
-import { loginSchema } from '@/utils/validation/AuthValidation';
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useContinueWithGoogleMutation,
+  useLoginUserMutation,
+} from "@/services/api/authApi";
+import { toastError } from "@/components/Toast/Toast";
+import { loginSchema } from "@/utils/validation/AuthValidation";
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useApiErrorHandling } from '@/hooks/useApiErrors';
-import { setAuth } from '@/services/slices/auth/authSlice';
+import { useApiErrorHandling } from "@/hooks/useApiErrors";
+import { setAuth } from "@/services/slices/auth/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,20 +30,19 @@ const Login = () => {
 
   let apiErrors2 = useApiErrorHandling(errorGoogle);
 
-   const handleSigninWithGoogle = useGoogleLogin({
-     onSuccess: async (res) => {
-       const { data: result } = await loginWithGoogle({
-         token: res.access_token,
-       });
-       if (result.success) {
-         localStorage.setItem(import.meta.env.VITE_TOKEN_KEY, result?.token);
+  const handleSigninWithGoogle = useGoogleLogin({
+    onSuccess: async (res) => {
+      const { data: result } = await loginWithGoogle({
+        token: res.access_token,
+      });
+      if (result.success) {
+        localStorage.setItem(import.meta.env.VITE_TOKEN_KEY, result?.token);
         navigate("/dashboard");
-        
-       }
-     },
-     onError: (error) =>
-       toastError("Something went wrong! Try again later", error),
-   });
+      }
+    },
+    onError: (error) =>
+      toastError("Something went wrong! Try again later", error),
+  });
 
   const initialValues = {
     email: "",
@@ -82,26 +79,28 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen h-screen overflow-x-hidden bg-white md:bg-primary flex gap-6">
+    <div className="w-screen md:h-screen overflow-x-hidden bg-white md:bg-primary flex gap-6">
       {/* Left Side  */}
       <div className="py-8 px-7 w-[30%] hidden md:block">
-        <div className="w-24">
-          <img src={logo} className="w-full" alt='Logo' />
+        <div className="w-24 min-h-24">
+          <img src={logo} className="w-full" alt="Logo" />
         </div>
 
-        <p className="text-white font-medium max-w-xs capitalize mt-8">
+        <p className="text-primary-foreground font-cormorant text-xl uppercase font-semibold max-w-xs mt-8">
           Get access to our premium hosting & blockchain plans
         </p>
       </div>
 
       {/* Right Side  */}
-      <div className="bg-white rounded-l-[40px] px-2 md:px-0 w-full md:w-[70%] h-full flex flex-col md:flex-row items-center justify-center">
-        {/* <div className="w-24 md:hidden">
+      <div className="bg-white rounded-l-[50px] px-2 md:px-0 w-full md:w-[70%] my-10 md:my-0 h-full flex flex-col md:flex-row md:items-center md:justify-center">
+        <div className="w-[70px] md:hidden ml-3">
           <Image src={logo} className="w-full" />
-        </div> */}
+        </div>
         <Card className="w-full mx-auto max-w-md pb-6 shadow-none border-none">
           <CardHeader>
-            <CardTitle className="text-2xl mb-5">Welcome Back</CardTitle>
+            <CardTitle className="text-4xl text-primary-foreground mb-5 font-cormorant font-bold">
+              Welcome Back
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Formik
@@ -157,7 +156,7 @@ const Login = () => {
                     <Button
                       isLoading={isLoading}
                       type="submit"
-                      className="w-full mt-4 font-semibold text-medium"
+                      className="w-full font-cormorant text-xl mt-4 font-semibold"
                       color="primary"
                       radius="sm"
                     >
@@ -174,7 +173,7 @@ const Login = () => {
                     </p>
 
                     {/* Divider  */}
-                    <div className="text-medium text-center text-default-500 font-medium my-4">
+                    <div className="text-medium text-center text-default-500 font-medium mt-4 md:mb-2 mb-1">
                       -OR-
                     </div>
 
@@ -199,6 +198,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
