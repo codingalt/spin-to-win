@@ -79,7 +79,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen md:h-screen overflow-x-hidden bg-white md:bg-primary flex gap-6">
+    <div className="w-screen md:h-screen scrollbar-hide overflow-x-hidden bg-white md:bg-primary flex gap-6">
       {/* Left Side  */}
       <div className="py-8 px-7 w-[30%] hidden md:block">
         <div className="w-24 min-h-24">

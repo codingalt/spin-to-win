@@ -84,7 +84,7 @@ const Signup = () => {
 
   return (
     <>
-      <div className="w-screen h-screen scrollbar-hide overflow-x-hidden bg-white md:bg-primary flex gap-6">
+      <div className="w-screen md:h-screen scrollbar-hide overflow-x-hidden bg-white md:bg-primary flex gap-6">
         {/* Left Side  */}
         <div className="py-8 px-7 w-[30%] hidden md:block">
           <div className="w-24 min-h-24">
@@ -101,9 +101,9 @@ const Signup = () => {
           <div className="w-[70px] md:hidden ml-3">
             <Image src={logo} className="w-full" />
           </div>
-          <Card className="w-full md:py-10 mx-auto max-w-md pb-6 shadow-none border-none">
+          <Card className="w-full md:py-24 flex flex-col md:justify-center h-full mx-auto max-w-md shadow-none border-none">
             <CardHeader>
-              <CardTitle className="text-3xl md:text-4xl md:mt-5 text-primary-foreground mb-2 font-cormorant font-bold">
+              <CardTitle className="text-3xl md:text-4xl md:mt-0 text-primary-foreground mb-2 font-cormorant font-bold">
                 Create Account
               </CardTitle>
             </CardHeader>
@@ -221,7 +221,7 @@ const Signup = () => {
                         <Button
                           isLoading={isLoadingGoogle}
                           onClick={handleSigninWithGoogle}
-                          className="bg-white py-5 w-full rounded-[9px]"
+                          className="bg-white py-5 w-full rounded-[9px] md:mb-8 2xl:mb-0"
                           variant="bordered"
                         >
                           <FcGoogle fontSize={23} />
