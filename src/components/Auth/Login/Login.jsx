@@ -117,7 +117,7 @@ const Login = () => {
                         id="email"
                         type="email"
                         name="email"
-                        placeholder="m@example.com"
+                        placeholder="Email Address"
                         required
                         variant="underlined"
                         onChange={(e) => handleChange(e, setFieldValue)}

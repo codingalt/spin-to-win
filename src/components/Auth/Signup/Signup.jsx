@@ -97,13 +97,13 @@ const Signup = () => {
         </div>
 
         {/* Right Side  */}
-        <div className="bg-white rounded-l-[50px] px-2 md:px-0 w-full md:w-[70%] md:py-8 my-9 md:my-0 h-full flex flex-col md:flex-row md:items-center md:justify-center">
+        <div className="bg-white rounded-l-[50px] px-2 md:px-0 w-full md:w-[70%] overflow-y-auto scrollbar-hide my-9 md:my-0 h-full flex flex-col md:flex-row md:items-center md:justify-center">
           <div className="w-[70px] md:hidden ml-3">
             <Image src={logo} className="w-full" />
           </div>
-          <Card className="w-full mx-auto max-w-md pb-6 shadow-none border-none">
+          <Card className="w-full md:py-10 mx-auto max-w-md pb-6 shadow-none border-none">
             <CardHeader>
-              <CardTitle className="text-3xl md:text-4xl text-primary-foreground mb-4 font-cormorant font-bold">
+              <CardTitle className="text-3xl md:text-4xl md:mt-5 text-primary-foreground mb-2 font-cormorant font-bold">
                 Create Account
               </CardTitle>
             </CardHeader>
@@ -116,8 +116,8 @@ const Signup = () => {
                 {({ errors, setFieldValue, touched }) => (
                   <Form>
                     <div className="grid gap-4">
-                      <div className="grid gap-2">
-                        <Label htmlFor="name">Name</Label>
+                      <div className="grid gap-2 mb-0.5">
+                        {/* <Label htmlFor="name">Name</Label> */}
                         <Input
                           id="name"
                           type="text"
@@ -134,13 +134,13 @@ const Signup = () => {
                         />
                       </div>
 
-                      <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                      <div className="grid gap-2 mb-0.5">
+                        {/* <Label htmlFor="email">Email</Label> */}
                         <Input
                           id="email"
                           type="email"
                           name="email"
-                          placeholder="m@example.com"
+                          placeholder="Email Address"
                           required
                           variant="underlined"
                           onChange={(e) => handleChange(e, setFieldValue)}
@@ -151,9 +151,9 @@ const Signup = () => {
                           className={css.inputError}
                         />
                       </div>
-                      <div className="grid gap-2">
+                      <div className="grid gap-2 mb-0.5">
                         <div className="flex items-center">
-                          <Label htmlFor="password">Password</Label>
+                          {/* <Label htmlFor="password">Password</Label> */}
                         </div>
                         <Input
                           id="password"
@@ -171,11 +171,11 @@ const Signup = () => {
                         />
                       </div>
 
-                      <div className="grid gap-2">
+                      <div className="grid gap-2 mb-0.5">
                         <div className="flex items-center">
-                          <Label htmlFor="confirmPassword">
+                          {/* <Label htmlFor="confirmPassword">
                             Confirm Password
-                          </Label>
+                          </Label> */}
                         </div>
                         <Input
                           id="confirmPassword"
@@ -195,7 +195,7 @@ const Signup = () => {
                       <Button
                         isLoading={isLoading}
                         type="submit"
-                        className="w-full font-cormorant text-xl mt-4 font-semibold text-medium"
+                        className="w-full font-cormorant md:text-xl mt-4 font-semibold text-medium"
                         color="primary"
                         radius="sm"
                       >
@@ -212,7 +212,7 @@ const Signup = () => {
                       </p>
 
                       {/* Divider  */}
-                      <div className="text-medium text-center text-default-500 font-medium mt-4 md:mb-2 mb-0">
+                      <div className="text-medium text-center text-default-500 font-medium mt-4 md:mb-0 mb-0">
                         -OR-
                       </div>
 
