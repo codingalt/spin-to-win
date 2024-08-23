@@ -37,7 +37,7 @@ const Login = () => {
       });
       if (result.success) {
         localStorage.setItem(import.meta.env.VITE_TOKEN_KEY, result?.token);
-        navigate("/dashboard");
+        navigate("/dashboard"); 
       }
     },
     onError: (error) =>
