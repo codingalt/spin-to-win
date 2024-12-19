@@ -60,7 +60,9 @@ const Hero = () => {
               data-aos-delay="300"
               data-aos-duration="700"
             >
-              {holders && holders.length > 0 && <WheelWrapper holders={holders} />}
+              {holders && holders.length > 0 && (
+                <WheelWrapper holders={holders} />
+              )}
             </div>
 
             {/* Right Side  */}
@@ -74,7 +76,9 @@ const Hero = () => {
                 Top Meme Coin Holders
               </h2>
               <div className="bg-background bg-opacity-60 shadow-lg border border-[#FFD700]/25 rounded-lg px-6 py-8">
-                <HoldersList holders={holders} />
+                {holders && holders.length > 0 && (
+                  <HoldersList holders={holders} />
+                )}
               </div>
             </div>
           </div>

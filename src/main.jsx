@@ -11,9 +11,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GoogleOAuthProvider clientId="1055637407106-map4fbrj0qko19urlfjpk9tm149rdmo2.apps.googleusercontent.com">
       <Provider store={store}>
-        <NextUIProvider>
+        {/* <NextUIProvider> */}
           <RouterProvider router={router} />
-        </NextUIProvider>
+        {/* </NextUIProvider>  */}
       </Provider>
     </GoogleOAuthProvider>
   </React.StrictMode>
