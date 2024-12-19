@@ -1,168 +1,169 @@
-import React, { useEffect } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetDescription } from "@/components/ui/sheet";
-import {
-  CircleUser,
-  Menu,
-  Package2,
-  Search,
-  Moon,
-  Sun,
-  UserRound,
-  LayoutPanelLeft,
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { useTheme } from "@/context/ThemeContext";
-import logo from "@/assets/logo.png";
-import { Image } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Logo } from "./Logo";
+import { HashLink as Link } from "react-router-hash-link";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { Send, Twitter } from "lucide-react";
 
 const Header = () => {
-  const { setTheme } = useTheme();
-  let pathname = window.location.pathname;
+  const [state, setState] = useState(false);
+  const [activeLink, setActiveLink] = useState(
+    window.location.hash || window.location.pathname
+  );
+  const [pathname, setPathname] = useState(window.location.pathname);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isExtraLargeDevice = useMediaQuery(
+    "only screen and (min-width : 1201px) and (max-width : 1580px)"
+  );
+
+  const navigation = [
+    {
+      title: "RoadMap",
+      path: "#Roadmap",
+    },
+    { title: "FAQ", path: "#faq" },
+    { title: "Episodes", path: "#howItWorks" },
+  ];
 
   useEffect(() => {
-    pathname = window.location.pathname;
-  }, [window.location.pathname]);
+    document.onclick = (e) => {
+      const target = e.target;
+      if (!target.closest(".menu-btn")) setState(false);
+    };
 
-  const handleLogout = () => {
-    localStorage.removeItem(import.meta.env.VITE_TOKEN_KEY);
-    window.location.reload();
+    const handleHashChange = () => {
+      setActiveLink(window.location.hash || window.location.pathname);
+      setPathname(window.location.pathname);
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      window.removeEventListener("popstate", handleHashChange);
+    };
+  }, []);
+
+  const handleSetActive = (path) => {
+    setActiveLink(path);
   };
 
   return (
-    <header className="flex h-14 items-center gap-4 border-b dark:border-gray-900 dark:shadow-sm bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="flex flex-col pl-5 border-none">
-          <SheetHeader className="hidden">
-            <SheetTitle></SheetTitle>
-            <SheetDescription></SheetDescription>
-          </SheetHeader>
-          <nav className="grid gap-2 text-lg font-medium pt-2 pl-0">
-            <Link
-              href="#"
-              className="flex items-center light:text-muted-foreground gap-2 text-lg font-semibold mb-3"
-            >
-              <Image src={logo} className="w-8" />
-              <span style={{ letterSpacing: "1px" }}>QI DIGITAL</span>
-            </Link>
-            <div className="mb-3 pt-3">
-              <div className="flex items-center text-gray-500 gap-2.5 rounded-lg px-3 py-2">
-                <LayoutPanelLeft className="w-5 h-5 md:text-[16px] md:w-auto md:h-auto" />
-                <span className="text-[16px]">Dashboards</span>
-              </div>
-
-              {/* Sub Options  */}
-              <div className="pl-8">
-                <Link
-                  to="/admin/dashboard"
-                  className={`flex items-center ${
-                    pathname.match("/admin/dashboard")
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground font-normal"
-                  } gap-3 rounded-lg px-3 py-1.5 md:py-2 transition-all text-[14px] hover:text-primary`}
-                >
-                  Stats
-                </Link>
-                <Link
-                  to="#"
-                  className={`flex items-center ${
-                    pathname.match("/admin/analytics")
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground font-normal"
-                  } gap-3 rounded-lg px-3 py-1.5 md:py-2 transition-all text-[14px] hover:text-primary`}
-                >
-                  Analytics
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center text-gray-500 gap-2.5 rounded-lg px-3 py-2">
-                <UserRound className="w-5 h-5 md:text-[16px] md:w-auto md:h-auto" />
-                <span className="text-[16px]">Admin</span>
-              </div>
-
-              {/* Sub Options  */}
-              <div className="pl-8">
-                <Link
-                  to="/admin/users"
-                  className={`flex items-center ${
-                    pathname.match("/admin/users")
-                      ? "text-primary font-medium"
-                      : "text-muted-foreground font-normal"
-                  } gap-3 rounded-lg px-3 py-1.5 md:py-2 transition-all text-[14px] hover:text-primary`}
-                >
-                  Users
-                </Link>
-              </div>
-            </div>
-          </nav>
-        </SheetContent>
-      </Sheet>
-      <div className="w-full flex-1">
-        <form>
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search here..."
-              className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-            />
-          </div>
-        </form>
+    <header>
+      <div
+        className={`md:hidden transition-all ${
+          state ? "mx-2 pb-4 opacity-0 hidden" : "hidden"
+        }`}
+      >
+        <Logo state={state} setState={setState} isSmallDevice={isSmallDevice} />
       </div>
-      {/* <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon">
-            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="dark:border-gray-500">
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            Dark
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("system")}>
-            System
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu> */}
+      <nav
+        className={`bg-background pb-0 md:px-7 md:text-sm duration-700 transition-all ease-soft-spring ${
+          state
+            ? "fixed opacity-100 z-50 top-0 inset-x-0 bg-opacity-10 rounded-none md:mx-0 md:mt-0 md:relative md:bg-transparent pb-10"
+            : "bg-opacity-10 z-50 fixed top-0 left-0 right-0"
+        }`}
+      >
+        <div
+          data-aos="fade-down"
+          data-aos-delay="200"
+          data-aos-duration="700"
+          className="gap-x-14 md:gap-x-6 lg:gap-x-14 justify-between items-center max-w-screen-xl 3xl:max-w-screen-2xl mx-auto px-5 md:flex md:px-1 lg:px-8 2xl:px-0 3xl:px-5"
+        >
+          <Logo
+            state={state}
+            setState={setState}
+            isSmallDevice={isSmallDevice}
+            isExtraLargeDevice={isExtraLargeDevice}
+          />
+          <div
+            className={`flex-1 items-center mt-8 md:mt-0 md:flex ${
+              state ? "block" : "hidden"
+            } `}
+          >
+            <ul className="flex-1 justify-center items-center space-y-6 md:flex md:space-x-7 2xl:space-x-8 md:space-y-0">
+              {navigation.map((item, idx) => {
+                return (
+                  <li
+                    key={idx}
+                    className="relative group text-primary lg:text-[15px] 2xl:text-[16px]"
+                  >
+                    <Link
+                      smooth
+                      to={item.path}
+                      onClick={() => handleSetActive(item.path)}
+                      className="block group-hover:text-[#FFA500] transition-colors"
+                    >
+                      {item.title}
+                    </Link>
+                    <span
+                      className={`absolute -bottom-1 left-0 w-0 h-0.5 rounded-full bg-primary transition-all duration-400 ${
+                        activeLink === item.path
+                          ? "w-[19%] md:w-full"
+                          : "group-hover:w-[19%] md:group-hover:w-full"
+                      }`}
+                    ></span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="secondary" size="icon" className="rounded-full">
-            <CircleUser className="h-5 w-5" />
-            <span className="sr-only">Toggle user menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="dark:border-gray-500">
-          <DropdownMenuLabel className="text-gray-400">
-            My Account
-          </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          {/* Right Side  */}
+          <div
+            className={`items-center mt-8 md:mt-0 md:flex justify-end ${
+              state ? "block" : "hidden"
+            } `}
+          >
+            {/* Social Links */}
+            <div className="flex items-center gap-5">
+              <Link
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-[#FFA500] transition-colors"
+              >
+                <Twitter className="h-6 w-6" />
+                <span className="sr-only">Twitter/X</span>
+              </Link>
+              <Link
+                href="https://telegram.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-[#FFA500] transition-colors"
+              >
+                <Send className="h-6 w-6" />
+                <span className="sr-only">Telegram</span>
+              </Link>
+              <button className="bg-transparent no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-sm font-medium leading-6  text-white inline-block">
+                <span className="absolute inset-0 overflow-hidden rounded-full">
+                  <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-100 transition-opacity duration-500 group-hover:opacity-100" />
+                </span>
+                <div className="relative flex space-x-2 items-center z-10 rounded-full bg-transparent py-1.5 px-5 ring-1">
+                  <span>Pump.fun</span>
+                  <svg
+                    fill="none"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.75 8.75L14.25 12L10.75 15.25"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </div>
+                <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+              </button>
+              
+            </div>
+          </div>
+        </div>
+      </nav>
     </header>
   );
 };
